@@ -1,3 +1,4 @@
+#### Simulation des données ####
 n <- 10000
 X <- rnorm(n)
 Y <- 2*X + 3
@@ -10,15 +11,14 @@ for(i in ref){
 }
 
 d <- data.frame(R,X,Y)
-table(d$R)
 
+#### Représentation des données ####
 par(mfrow=c(2,3))
 
 for(i in ref){
-  plot(d$X[d$R==i],d$Y[d$R==i], xlab="X", ylab="Y", main=paste("R =",i))
+  plot(d$X[d$R==i],d$Y[d$R==i], xlab="X", ylab="Y", main=paste("R =",i), col="blue", pch=46)
 }
-plot(d$X, d$Y, xlab="X", ylab="Y", main="All")
+plot(d$X, d$Y, xlab="X", ylab="Y", main="All", col="blue", pch=46)
 
-for(i in ref){
-  print(paste(i,":",summary(lm(d$Y[d$R==i] ~ d$X[d$R==i]))$adj.r.squared))
-}
+#### Sauvegarde des données ####
+write.table(d, "/home/root/big_data_simulated.csv", sep=" ", col.names=F, row.names=F)
