@@ -60,7 +60,7 @@ nbLignes = mapreduce(
     map = function(k, v)
             keyval(v$R, 1),
     reduce = function(k, v)
-              cbind(R = k, nbLignes = sum(v))
+              cbind(R = k, nbLignes = sum(v)) )
 from.dfs(nbLignes)
 
 # Régression linéaire
