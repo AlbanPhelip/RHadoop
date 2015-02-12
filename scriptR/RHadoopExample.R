@@ -76,18 +76,22 @@ from.dfs(nbLignes)
 
  
 #### Comparaison des résultats avec les données en local, directement depuis R ####
+# Lecture des données
 data <- read.table("/home/root/big_data_simulated.csv", header=F)
-ref <- c("A","B","C","D","E")
 
-# Nombre de lignes
-for(i in ref){
-  print(paste(i, nrow(data[data[,1]==i,])))
-}
- 
-# Régression
+# On renome les colonnes de notre table
 colnames(data) <- c("R", "X", "Y")
+
+# On récupère les modalités de la variable R (A, B, C, D et E)
+ref <- levels(as.factor(data$R))
+
+
+# Régression
 for(i in ref){
-  print(paste(i,":",summary(lm(data$Y[data$R==i] ~ data$X[data$R==i]))$r.squared))
+  Y <- data$Y[data$R==i] # On récupère les valeurs de X qui nous intéressent
+  X <- data$X[data$R==i] # On récupère les valeurs de Y qui nous intéressent
+  model <- lm(Y ~ X) # On construit le modèle
+  r2 <- summary(model)$r.squared # On récupère le R2
+  print(paste(i,":",r2)) # On l’imprime
 }
- 
  
