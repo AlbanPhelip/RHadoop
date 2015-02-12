@@ -59,8 +59,8 @@ nbLignes = mapreduce(
     input.format = format,
     map = function(k, v)
             keyval(v$R, 1),
-    reduce = function(k, v){
-              cbind(R = k, nbLignes = sum(v))
+    reduce = function(k, v)
+              cbind(R = k, nbLignes = sum(v)) )
 from.dfs(nbLignes)
 
 # Régression linéaire
@@ -69,7 +69,7 @@ r2 = mapreduce(
     input.format = format,
     map = function(k, v)
             keyval(v$R, data.frame(v$X,v$Y)),
-    reduce = function(k, v){
+    reduce = function(k, v)
               cbind(R = k, R2 = summary(lm(v$v.Y ~ v$v.X))$r.squared) )
 from.dfs(nbLignes)
 
@@ -94,4 +94,3 @@ for(i in ref){
   r2 <- summary(model)$r.squared # On récupère le R2
   print(paste(i,":",r2)) # On l’imprime
 }
- 
